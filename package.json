@@ -1,0 +1,19 @@
+{
+  "name": "kiddohood",
+  "version": "1.0.0",
+  "description": "KiddoHood is a platform where parents can find and share activities, locate parks and playgrounds, and discover local events suitable for children. This platform will integrate various APIs to provide comprehensive information and features to enhance the user experience.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex-Design-For-Reap/KiddoHood.git"
+  },
+  "author": "Alex Da Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex-Design-For-Reap/KiddoHood/issues"
+  },
+  "homepage": "https://github.com/Alex-Design-For-Reap/KiddoHood#readme"
+}
