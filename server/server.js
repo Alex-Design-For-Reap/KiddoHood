@@ -1,36 +1,44 @@
+// server.js
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const path = require('path');
-const db = require('./config/db');
+const { ApolloServer } = require('@apollo/server');
+const { expressMiddleware } = require('@apollo/server/express4');
+
+// Import typeDefs and resolvers
 const { typeDefs, resolvers } = require('./schemas');
-const { authMiddleware } = require('./utils/auth');
+const connectDB = require('./config/connection');
 require('dotenv').config();
 
-const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Initialize Apollo Server
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: authMiddleware,
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    // This is where you can add context like the authenticated user
+    // For example: const token = req.headers.authorization || '';
+  }
+
 });
 
-server.applyMiddleware({ app });
+const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-}
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
-
-db.once('open', () => {
-    app.listen(PORT, () => {
-        console.log(`🌍 Now listening on localhost:${PORT}`);
-        console.log(`🚀 GraphQL server ready at http://localhost:${PORT}${server.graphqlPath}`);
+// Create a new instance of an Apollo server with the GraphQL schema
+const startApolloServer = async () => {
+    await server.start();
+    
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
+    
+    app.use('/graphql', expressMiddleware(server));
+  
+    connectDB.once('open', () => {
+      app.listen(PORT, () => {
+        console.log(`API server running on port ${PORT}!`);
+        console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+      });
     });
-});
+  };
+  
+  // Call the async function to start the server
+  startApolloServer();

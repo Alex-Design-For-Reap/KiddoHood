@@ -1,10 +1,9 @@
+// schemas/resolvers.js
 const resolvers = {
     Query: {
-        _: () => true,
+      hello: () => 'Hello world!',
     },
-    Mutation: {
-        _: () => true,
-    },
-};
-
-module.exports = resolvers;
+  };
+  
+  module.exports = resolvers;
+  
