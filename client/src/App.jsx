@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import AuthService from './utils/auth';
+import Auth from './utils/auth';
 
 import { UserOutlined, HomeOutlined, ContactsOutlined, MehOutlined  } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
@@ -42,7 +42,7 @@ const App = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const isLoggedIn = AuthService.loggedIn();
+  // const isLoggedIn = Auth.loggedIn();
 
   const items = [
     {
@@ -60,12 +60,12 @@ const App = () => {
         key: '4',
         icon: <ContactsOutlined />,
     },
-    !isLoggedIn && {
+    {
       label: <NavLink to='/Login'>Login</NavLink>,
       key: '5',
       icon: <UserOutlined />,
   },
-  !isLoggedIn && {
+ {
     label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
     key: '3',
     icon: <MehOutlined />,
@@ -136,10 +136,19 @@ const App = () => {
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
-          >
+            >
+            {Auth.loggedIn() ? (
+              <>
               <Outlet />
+              </>
+            ) : (
+              <>
+              <h2>Please log in to continue</h2>
+              </>
+            )}
           </div>
         </Content>
+
         <Footer
           style={{
             textAlign: 'center',
@@ -152,4 +161,5 @@ const App = () => {
     </ApolloProvider>
   );
 };
+
 export default App;
