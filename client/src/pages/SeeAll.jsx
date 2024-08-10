@@ -1,6 +1,7 @@
-import React from 'react';
+// import React from 'react';
 import { Col, Row } from 'antd';
-import Cards from '../components/Card';
+// import Cards from '../components/Card';
+import EventsPage from '../components/Card';
 
 const SeeAll = () => {
   return (
@@ -8,13 +9,13 @@ const SeeAll = () => {
       <h1>All Events</h1>
       <Row gutter={16}>
         <Col span={8}>
-          <Cards />
+          <EventsPage />
         </Col>
         <Col span={8}>
-          <Cards />
+          <EventsPage />
         </Col>
         <Col span={8}>
-          <Cards />
+          <EventsPage />
         </Col>
       </Row>
     </div>

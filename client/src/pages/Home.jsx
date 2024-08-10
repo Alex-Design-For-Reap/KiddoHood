@@ -1,6 +1,7 @@
-import React from 'react';
+// import React from 'react';
 import { Button, Card, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
+// import { DownloadOutlined } from '@ant-design/icons';
 
 const Home = () => {
   return (
@@ -8,7 +9,7 @@ const Home = () => {
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '50px' }}>
         <h1>Welcome to KiddoHood</h1>
-        <p>Your ultimate destination for kids' events and activities</p>
+        <p>Your ultimate destination for kids events and activities</p>
         <Button type="primary">
           <Link to="/login">Login</Link>
         </Button>
@@ -23,16 +24,25 @@ const Home = () => {
           <Col span={8}>
             <Card title="Create Events">
               <p>Create and manage events easily.</p>
+              <Button shape="round">
+                <Link to="/CreateNew">Create</Link>
+              </Button>
             </Card>
           </Col>
           <Col span={8}>
             <Card title="See All Events">
               <p>View all the events in your area.</p>
+              <Button shape="round">
+                <Link to="/SeeAll">See All</Link>
+              </Button>
             </Card>
           </Col>
           <Col span={8}>
             <Card title="Organize Your Favorites">
               <p>Save and organize your favorite events.</p>
+              <Button shape="round">
+                <Link to="/MyFavorites">My Favorites</Link>
+              </Button>
             </Card>
           </Col>
         </Row>

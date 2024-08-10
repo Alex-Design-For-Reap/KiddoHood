@@ -1,6 +1,7 @@
-import React from 'react';
+// import React from 'react';
 import { Button, Col, Row } from 'antd';
-import Cards from '../components/Card';
+// import Cards from '../components/Card';
+import CardCreator from '../components/CardCreator';
 
 const Dashboard = () => {
   return (
@@ -10,13 +11,13 @@ const Dashboard = () => {
       </Button>
       <Row gutter={16}>
         <Col span={8}>
-          <Cards />
+          <CardCreator />
         </Col>
         <Col span={8}>
-          <Cards />
+          <CardCreator />
         </Col>
         <Col span={8}>
-          <Cards />
+          <CardCreator />
         </Col>
       </Row>
     </div>

@@ -1,0 +1,24 @@
+[
+    {
+      "title": "Amazing Event",
+      "description": "Join us for an amazing event full of fun!",
+      "imageUrl": "https://example.com/event-image1.jpg",
+      "likesCount": 15,
+      "date": "2024-08-20"
+    },
+    {
+      "title": "Outdoor Adventure",
+      "description": "Experience the thrill of the outdoors!",
+      "imageUrl": "https://example.com/event-image2.jpg",
+      "likesCount": 30,
+      "date": "2024-08-22"
+    },
+    {
+      "title": "Art Exhibition",
+      "description": "Explore beautiful art pieces from local artists.",
+      "imageUrl": "https://example.com/event-image3.jpg",
+      "likesCount": 45,
+      "date": "2024-08-25"
+    }
+  ]
+  

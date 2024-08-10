@@ -19,11 +19,6 @@ const items = [
         icon: <MehOutlined />,
     },
     {
-      label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
-      key: '3',
-      icon: <MehOutlined />,
-    },
-    {
         label: <NavLink to='/Contact'>Contact</NavLink>,
         key: '4',
         icon: <ContactsOutlined />,
@@ -32,6 +27,11 @@ const items = [
       label: <NavLink to='/Login'>Login</NavLink>,
       key: '5',
       icon: <UserOutlined />,
+  },
+  {
+    label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
+    key: '3',
+    icon: <MehOutlined />,
   },
   {
     label: <NavLink to='/Register'>Register</NavLink>,
@@ -51,11 +51,6 @@ const items = [
 {
   label: <NavLink to='/CreateNew'>Create New</NavLink>,
   key: '9',
-  icon: <UserOutlined />,
-},
-{
-  label: <NavLink to='/CommentForm'>CommentForm</NavLink>,
-  key: '10',
   icon: <UserOutlined />,
 },
 {

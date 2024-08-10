@@ -1,7 +1,19 @@
-// schemas/typeDefs.js
 const typeDefs = `
+  type Event {
+    _id: ID!
+    title: String!
+    description: String!
+    imageUrl: String!
+    likesCount: Int!
+  }
+
   type Query {
-    hello: String
+    events: [Event]
+    event(id: ID!): Event
+  }
+
+  type Mutation {
+    addEvent(title: String!, description: String!, imageUrl: String!): Event
   }
 `;
 

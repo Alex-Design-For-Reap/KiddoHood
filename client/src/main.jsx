@@ -1,7 +1,7 @@
 
 import '../src/App.css';
 
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -17,7 +17,6 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dasboard';
 import SinglePlace from './pages/SinglePlace';
 import MyFavorites from './pages/MyFavorites';
-import CommentForm from './pages/CommentForm';
 import SeeAll from './pages/SeeAll';
 import CreateNew from './pages/CreateNew';
 
@@ -58,10 +57,6 @@ const router = createBrowserRouter ([
       {
         path: 'MyFavorites',
         element: <MyFavorites />
-      },
-      {
-        path: 'CommentForm',
-        element: <CommentForm/>
       },
       {
         path: 'CreateNew',
