@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Button, DatePicker, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
@@ -9,19 +9,34 @@ const CreateNew = () => {
 
   return (
     <Form onFinish={onFinish} layout="vertical">
-      <Form.Item name="title" label="Event Title" rules={[{ required: true }]}>
+      <Form.Item 
+      name="title" 
+      label="Event Title" 
+      rules={[{ required: true, message: 'Please enter the event title' }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="date" label="Event Date" rules={[{ required: true }]}>
+      <Form.Item 
+      name="date" 
+      label="Event Date" 
+      rules={[{ required: true, message: 'Please enter the event date'}]}>
         <DatePicker />
       </Form.Item>
-      <Form.Item name="address" label="Address" rules={[{ required: true }]}>
+      <Form.Item 
+      name="address" 
+      label="Address" 
+      rules={[{ required: true, message: 'Please enter the event address'}]}>
         <Input />
       </Form.Item>
-      <Form.Item name="details" label="More Details">
+      <Form.Item 
+      name="description" 
+      label="Event Description" 
+      rules={[{ required: true, message: 'Please enter the event description'}]}>
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name="upload" label="Upload Photo">
+      <Form.Item 
+      name="upload" 
+      label="Upload Photo" 
+      rules={[{required: true, message: 'Please upload an image for the event cover'}]}>
         <Upload>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>

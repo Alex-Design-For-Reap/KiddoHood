@@ -1,13 +1,50 @@
 // import React, {useState} from 'react';
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import AuthService from './utils/auth';
+
 import { UserOutlined, HomeOutlined, ContactsOutlined, MehOutlined  } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 import myImage from './assets/KiddoHoodLogo.svg';
 
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
+const App = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  const isLoggedIn = AuthService.loggedIn();
+
+  const items = [
     {
         label: <NavLink to='/'>Home</NavLink>,
         key: '1',
@@ -23,12 +60,12 @@ const items = [
         key: '4',
         icon: <ContactsOutlined />,
     },
-    {
+    !isLoggedIn && {
       label: <NavLink to='/Login'>Login</NavLink>,
       key: '5',
       icon: <UserOutlined />,
   },
-  {
+  !isLoggedIn && {
     label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
     key: '3',
     icon: <MehOutlined />,
@@ -58,13 +95,11 @@ const items = [
   key: '11',
   icon: <UserOutlined />,
 },
-    ];
+    ].filter(Boolean);
 
-const App = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+
   return (
+    <ApolloProvider client={client}>
     <Layout>
       <Sider
         breakpoint="lg"
@@ -114,6 +149,7 @@ const App = () => {
         </Footer>
       </Layout>
     </Layout>
+    </ApolloProvider>
   );
 };
 export default App;
