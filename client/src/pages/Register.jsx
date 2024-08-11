@@ -79,10 +79,10 @@ const Register = () => {
   
   return (
     <>
-      {data ? (
+      {Auth.loggedIn ? (
         <p>
-          Success! You may now head{' '}
-          <Link to="/Dashboard">Go to Dashboard.</Link>
+          You are already Logged in! You may now head to{' '}
+          <Link to="/Dashboard"> Dashboard.</Link>
         </p>
       ) : (
       <Form 

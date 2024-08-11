@@ -9,13 +9,14 @@ import {
 import { setContext } from '@apollo/client/link/context';
 // import Auth from './utils/auth';
 
-import { UserOutlined, HomeOutlined, ContactsOutlined, MehOutlined  } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-import { NavLink, Outlet } from 'react-router-dom';
-import myImage from './assets/KiddoHoodLogo.svg';
+// import { UserOutlined, HomeOutlined, ContactsOutlined, MehOutlined  } from '@ant-design/icons';
+import { Layout, theme } from 'antd';
+import { Outlet } from 'react-router-dom';
+// import myImage from './assets/KiddoHoodLogo.svg';
+import Sidebar from './components/Sidebar';
 
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const App = () => {
   const {
@@ -24,58 +25,58 @@ const App = () => {
 
   // const isLoggedIn = Auth.loggedIn();
 
-  const items = [
-    {
-        label: <NavLink to='/'>Home</NavLink>,
-        key: '1',
-        icon: <HomeOutlined />,
-    },
-    {
-        label: <NavLink to='/SeeAll'  > See All Events</NavLink>,
-        key: '2',
-        icon: <MehOutlined />,
-    },
-    {
-        label: <NavLink to='/Contact'>Contact</NavLink>,
-        key: '4',
-        icon: <ContactsOutlined />,
-    },
-    {
-      label: <NavLink to='/Login'>Login</NavLink>,
-      key: '5',
-      icon: <UserOutlined />,
-    },
-    {
-      label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
-      key: '3',
-      icon: <MehOutlined />,
-    },
-    {
-      label: <NavLink to='/Register'>Register</NavLink>,
-      key: '6',
-      icon: <UserOutlined />,
-    },
-    {
-      label: <NavLink to='/SinglePlace'>Single Event</NavLink>,
-      key: '7',
-      icon: <UserOutlined />,
-    },
-    {
-      label: <NavLink to='/Dashboard'>Dashboard</NavLink>,
-      key: '8',
-      icon: <UserOutlined />,
-    },
-    {
-      label: <NavLink to='/CreateNew'>Create New</NavLink>,
-      key: '9',
-      icon: <UserOutlined />,
-    },
-    {
-      label: <NavLink to='/Error'>Error</NavLink>,
-      key: '11',
-      icon: <UserOutlined />,
-    },
-  ];
+  // const items = [
+  //   {
+  //       label: <NavLink to='/'>Home</NavLink>,
+  //       key: '1',
+  //       icon: <HomeOutlined />,
+  //   },
+  //   {
+  //       label: <NavLink to='/SeeAll'  > See All Events</NavLink>,
+  //       key: '2',
+  //       icon: <MehOutlined />,
+  //   },
+  //   {
+  //       label: <NavLink to='/Contact'>Contact</NavLink>,
+  //       key: '4',
+  //       icon: <ContactsOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/Login'>Login</NavLink>,
+  //     key: '5',
+  //     icon: <UserOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
+  //     key: '3',
+  //     icon: <MehOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/Register'>Register</NavLink>,
+  //     key: '6',
+  //     icon: <UserOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/SinglePlace'>Single Event</NavLink>,
+  //     key: '7',
+  //     icon: <UserOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/Dashboard'>Dashboard</NavLink>,
+  //     key: '8',
+  //     icon: <UserOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/CreateNew'>Create New</NavLink>,
+  //     key: '9',
+  //     icon: <UserOutlined />,
+  //   },
+  //   {
+  //     label: <NavLink to='/Error'>Error</NavLink>,
+  //     key: '11',
+  //     icon: <UserOutlined />,
+  //   },
+  // ];
 
   const httpLink = createHttpLink({
     uri: '/graphql',
@@ -100,7 +101,9 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
     <Layout>
-      <Sider
+      <Sidebar />
+      
+      {/* <Sider
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
@@ -115,7 +118,7 @@ const App = () => {
         </div>
 
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
-      </Sider>
+      </Sider> */}
       <Layout>
         <Header
           style={{
