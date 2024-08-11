@@ -4,21 +4,24 @@
       "description": "Join us for an amazing event full of fun!",
       "imageUrl": "https://example.com/event-image1.jpg",
       "likesCount": 15,
-      "date": "2024-08-20"
+    "eventDate": "2024-08-20T10:00:00Z",
+    "createdAt": "2024-08-01T08:00:00Z"
     },
     {
       "title": "Outdoor Adventure",
       "description": "Experience the thrill of the outdoors!",
       "imageUrl": "https://example.com/event-image2.jpg",
       "likesCount": 30,
-      "date": "2024-08-22"
+    "eventDate": "2024-08-22T09:00:00Z",
+    "createdAt": "2024-08-02T09:00:00Z"
     },
     {
       "title": "Art Exhibition",
       "description": "Explore beautiful art pieces from local artists.",
       "imageUrl": "https://example.com/event-image3.jpg",
       "likesCount": 45,
-      "date": "2024-08-25"
+    "eventDate": "2024-08-25T12:00:00Z",
+    "createdAt": "2024-08-03T10:00:00Z"
     }
   ]
   

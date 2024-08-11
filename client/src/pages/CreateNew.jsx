@@ -2,12 +2,19 @@
 import { Button, DatePicker, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
+import Auth from '../utils/auth';
+import PleaseLogin from '../components/PleaseLogin';
+
 const CreateNew = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
 
   return (
+    <div>
+      {Auth.loggedIn() ? (
+        <>
+          <h1>Create New Event</h1>
     <Form onFinish={onFinish} layout="vertical">
       <Form.Item 
       name="title" 
@@ -47,6 +54,14 @@ const CreateNew = () => {
         </Button>
       </Form.Item>
     </Form>
+      </>
+      ) : (
+        <>
+          <PleaseLogin />
+        </>
+      )}
+
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@
 import { Button, Col, Row } from 'antd';
 // import Cards from '../components/Card';
 import CardCreator from '../components/CardCreator';
+import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 import PleaseLogin from '../components/PleaseLogin';
@@ -20,7 +21,7 @@ const Dashboard = () => {
 
 
       <Button type="primary" style={{ marginBottom: '20px' }}>
-        Create New Event
+        <Link to="/CreateNew">Create New Event</Link>
       </Button>
       <Row gutter={16}>
         <Col span={8}>

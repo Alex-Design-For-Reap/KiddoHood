@@ -1,5 +1,5 @@
 const Event = require('./Event');
-// const Class = require('./Class');
+const User = require('./User');
 // const Professor = require('./Professor');
 
-module.exports = { Event };
+module.exports = { Event, User };
