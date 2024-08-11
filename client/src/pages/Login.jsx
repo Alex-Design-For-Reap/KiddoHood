@@ -14,6 +14,7 @@ const Login = (props) => {
 
   // Update state based on form input changes
   const handleChange = (event) => {
+    event.preventDefault();
     const { name, value } = event.target;
 
     setFormState({
