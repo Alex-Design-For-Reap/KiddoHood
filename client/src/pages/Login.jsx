@@ -1,65 +1,116 @@
-// import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
+
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Flex } from 'antd';
+import { Button, Form, Input } from 'antd';
 
+const Login = (props) => {
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
-const Login = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  // Update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
-  return (
-    <Form
-      name="login"
-      initialValues={{
-        remember: true,
-      }}
-      style={{
-        maxWidth: 360,
-      }}
-      onFinish={onFinish}
-    >
-      <Form.Item
-        name="email"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-        >
-        <Input prefix={<MailOutlined />} placeholder="Email" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Password!',
-          },
-        ]}
-      >
-        <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
-      </Form.Item>
-      <Form.Item>
-        <Flex justify="space-between" align="center">
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-          <a href="">Forgot password</a>
-        </Flex>
-      </Form.Item>
 
-      <Form.Item>
-        <Button block type="primary" htmlType="submit">
-          Log in
-        </Button>
-        or <a href="/Register">Register now!</a>
-      </Form.Item>
-    </Form>
+  // Submit form
+  const handleFormSubmit = async (values) => {
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
+
+  return (
+    <>
+      {data ? (
+        <p>
+          Success! You may now head{' '}
+          <Link to="/Dashboard">Go to Dashboard.</Link>
+        </p>
+      ) : (
+        <Form
+          name="login"
+          initialValues={{
+            remember: true,
+          }}
+          style={{
+            maxWidth: 360,
+          }}
+          onFinish={handleFormSubmit}
+        >
+          <Form.Item
+            className='form-item'
+            name="email"
+            value={formState.email}
+            onChange={handleChange}
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<MailOutlined />}
+              placeholder="Email"
+              name="email"
+            />
+          </Form.Item>
+          <Form.Item
+            className='form-item'
+            name="password"
+            value={formState.password}
+            onChange={handleChange}
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="Password"
+              name="password"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button block type="primary" htmlType="submit">
+              Log in
+            </Button>
+            or <Link to="/Register">Register now!</Link>
+          </Form.Item>
+          {error && <div>{error.message}</div>}
+        </Form>
+      )}
+    </>
   );
 };
+
 export default Login;

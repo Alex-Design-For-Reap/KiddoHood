@@ -1,51 +1,19 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import { Link } from 'react-router-dom';
+
+import Auth from '../utils/auth';
+
 import {
-  // AutoComplete,
   Button,
-  // Cascader,
-  // Checkbox,
-  // Col,
   Form,
   Input,
-  // InputNumber,
-  // Row,
   Select,
 } from 'antd';
+
 const { Option } = Select;
-// const residences = [
-//   {
-//     value: 'zhejiang',
-//     label: 'Zhejiang',
-//     children: [
-//       {
-//         value: 'hangzhou',
-//         label: 'Hangzhou',
-//         children: [
-//           {
-//             value: 'xihu',
-//             label: 'West Lake',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     value: 'jiangsu',
-//     label: 'Jiangsu',
-//     children: [
-//       {
-//         value: 'nanjing',
-//         label: 'Nanjing',
-//         children: [
-//           {
-//             value: 'zhonghuamen',
-//             label: 'Zhong Hua Men',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ];
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -64,6 +32,7 @@ const formItemLayout = {
     },
   },
 };
+
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -76,135 +45,119 @@ const tailFormItemLayout = {
     },
   },
 };
+
 const Register = () => {
-  const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const [formState, setFormState] = useState({ 
+    username: '',
+    email: '',
+    password: '',
+  }); 
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
+  // Update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+
+  // Submit form
+  const handleFormSubmit = async (values) => {
+    try {
+      const { data } = await addUser({
+        variables: { ...values },
+      });
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
     }
   };
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+
+  const [form] = Form.useForm();
+  
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      // initialValues={{
-      //   // residence: ['zhejiang', 'hangzhou', 'xihu'],
-      //   // prefix: '86',
-      // }}
-      style={{
-        maxWidth: 600,
-      }}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="username"
-        label="Username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-            whitespace: true,
-          },
-        ]}
+    <>
+      {data ? (
+        <p>
+          Success! You may now head{' '}
+          <Link to="/Dashboard">Go to Dashboard.</Link>
+        </p>
+      ) : (
+      <Form 
+        {...formItemLayout}
+        form={form}
+        name="register"
+        onFinish={handleFormSubmit} // Use handleFormSubmit here
+        style={{ maxWidth: 600 }}
+        scrollToFirstError
         >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="email"
-        label="Email"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-        >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-        >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('The new password that you entered do not match!'));
+        <Form.Item
+          name="username"
+          label="Username"
+          value={formState.username}
+          onChange={handleChange}
+          rules={[
+            {
+              required: true,
+              message: 'Please input your username!',
+              whitespace: true,
             },
-          }),
-        ]}
-        >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+          ]}
+          >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="email"
+          label="Email"
+          value={formState.email}
+          onChange={handleChange}
+          rules={[
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
+            },
+            {
+              required: true,
+              message: 'Please input your E-mail!',
+            },
+          ]}
+          >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          label="Password"
+          value={formState.password}
+          onChange={handleChange}
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+          hasFeedback
+          >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+      )}
+      {error && (
+        <div>
+          {error.message}
+        </div>
+      )}
+    </>
   );
 };
+
 export default Register;

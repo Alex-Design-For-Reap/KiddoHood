@@ -2,20 +2,37 @@
 import { Button, Card, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
 // import { DownloadOutlined } from '@ant-design/icons';
+import Auth from '../utils/auth';
 
 const Home = () => {
+  const loggedIn = Auth.loggedIn();
+  const username = Auth.getProfile().data.username;
+
   return (
     <div>
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '50px' }}>
-        <h1>Welcome to KiddoHood</h1>
-        <p>Your ultimate destination for kids events and activities</p>
-        <Button type="primary">
+        {loggedIn ? (
+          <>
+          <h1>Welcome back, {username}!</h1>
+          <p>Your ultimate destination for kids events and activities</p>
+          <Button type="primary">
+          <Link to="/Dashboard">Go to Dashboard</Link>
+        </Button>
+          </>
+        ) : (
+          <>
+          <h1>Welcome to KiddoHood</h1>
+          <p>Your ultimate destination for kids events and activities</p>
+          <Button type="primary">
           <Link to="/login">Login</Link>
         </Button>
         <Button type="default" style={{ marginLeft: '10px' }}>
           <Link to="/register">Register</Link>
         </Button>
+          </>
+        )
+        }
       </section>
 
       {/* Section 2 */}
