@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 const Home = () => {
-  const loggedIn = Auth.loggedIn();
+  // const loggedIn = Auth.loggedIn();
   const userProfile = Auth.getProfile();
   const username = userProfile?.data?.username; // Safely accessing username
 
@@ -12,7 +12,7 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '50px' }}>
-        {loggedIn && username ? (
+        {Auth.loggedIn()? (
           <>
             <h1>Welcome back, {username}!</h1>
             <p>Your ultimate destination for kids events and activities</p>

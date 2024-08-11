@@ -9,7 +9,8 @@ import PleaseLogin from '../components/PleaseLogin';
 
 const Dashboard = () => {
 
-  const username = Auth.getProfile().data.username;
+  const userProfile = Auth.getProfile();
+  const username = userProfile?.data?.username; // Safely accessing username
 
   return (
 
