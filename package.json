@@ -4,7 +4,14 @@
   "description": "KiddoHood is a platform where parents can find and share activities, locate parks and playgrounds, and discover local events suitable for children. This platform will integrate various APIs to provide comprehensive information and features to enhance the user experience.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "npm install --prefix client && npm install --prefix server",
+    "start": "concurrently \"npm run start:server\" \"npm run dev:client\"",
+    "start:server": "npm run start --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "lint:client": "npm run lint --prefix client",
+    "seed:server": "npm run seed --prefix server",
+    "test:server": "npm run test --prefix server"
   },
   "repository": {
     "type": "git",
@@ -15,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Alex-Design-For-Reap/KiddoHood/issues"
   },
-  "homepage": "https://github.com/Alex-Design-For-Reap/KiddoHood#readme"
+  "homepage": "https://github.com/Alex-Design-For-Reap/KiddoHood#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
