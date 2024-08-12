@@ -14,7 +14,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dasboard';
-import SinglePlace from './pages/SinglePlace';
+import SingleEvent from './pages/SingleEvent';
 import MyFavorites from './pages/MyFavorites';
 import SeeAll from './pages/SeeAll';
 import CreateNew from './pages/CreateNew';
@@ -50,8 +50,8 @@ const router = createBrowserRouter ([
         element: <Dashboard />
       },
       {
-        path: 'SnglePlace',
-        element: <SinglePlace />
+        path: 'Event/:eventId',
+        element: <SingleEvent />
       },
       {
         path: 'MyFavorites',
@@ -60,12 +60,7 @@ const router = createBrowserRouter ([
       {
         path: 'CreateNew',
         element: <CreateNew/>
-      },
-      {
-        path: 'SinglePlace',
-        element: <SinglePlace/>
-      },
-      
+      },      
     ]
   }
 ]);
