@@ -27,7 +27,7 @@
       "eventDate": "2024-08-15T00:00:00Z",
       "location": "Alice's house",
       "likesCount": 10,
-      "userId": "PLACEHOLDER_USER_ID_1",
+      "userId": "66b9efd26b90875bf3f64500",
       "createdAt": "2024-08-01T12:00:00Z"
     },
     {
@@ -37,7 +37,7 @@
       "eventDate": "2024-08-20T00:00:00Z",
       "location": "Downtown Arena",
       "likesCount": 20,
-      "userId": "PLACEHOLDER_USER_ID_2",
+      "userId": "66b9efd26b90875bf3f64501",
       "createdAt": "2024-08-02T12:00:00Z"
     },
     {
@@ -47,27 +47,27 @@
       "eventDate": "2024-08-25T00:00:00Z",
       "location": "Community Center",
       "likesCount": 15,
-      "userId": "PLACEHOLDER_USER_ID_3",
+      "userId": "66b9efd26b90875bf3f64502",
       "createdAt": "2024-08-03T12:00:00Z"
     }
   ],
   "comments": [
     {
       "text": "Sounds amazing!",
-      "userId": "PLACEHOLDER_USER_ID_1",
-      "eventId": "PLACEHOLDER_EVENT_ID_1",
+      "userId": "66b9efd26b90875bf3f64500",
+      "eventId": "64b2e8d87bff4c43f8c0a891",
       "createdAt": "2024-08-01T12:00:00Z"
     },
     {
       "text": "Can't wait!",
-      "userId": "PLACEHOLDER_USER_ID_2",
-      "eventId": "PLACEHOLDER_EVENT_ID_2",
+      "userId": "66b9efd26b90875bf3f64501",
+      "eventId": "64b2e8d87bff4c43f8c0a892",
       "createdAt": "2024-08-02T12:00:00Z"
     },
     {
       "text": "I love workshops!",
-      "userId": "PLACEHOLDER_USER_ID_3",
-      "eventId": "PLACEHOLDER_EVENT_ID_3",
+      "userId": "66b9efd26b90875bf3f64502",
+      "eventId": "64b2e8d87bff4c43f8c0a893",
       "createdAt": "2024-08-03T12:00:00Z"
     }
   ]

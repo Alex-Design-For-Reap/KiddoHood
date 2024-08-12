@@ -30,8 +30,8 @@ const typeDefs = `
 type Comment {
     _id: ID!
     text: String!
-    userId: User
-    eventId: Event
+    userId: ID!
+    eventId: ID!
     createdAt: String!
   }
 
@@ -41,6 +41,7 @@ type Comment {
     me: User
     events: [Event]
     event(id: ID!): Event
+    comments(eventId: ID!): [Comment]
   }
 
   type Mutation {
@@ -77,6 +78,12 @@ type Comment {
     deleteEvent(
       id: ID!
     ): Event
+
+    addComment(
+      text: String!,
+      userId: ID!,
+      eventId: ID!
+    ): Comment
   }
 `;
 

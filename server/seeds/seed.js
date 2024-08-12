@@ -1,40 +1,14 @@
-
-// const db = require('../config/connection');
-// const { Event} = require('../models');
-// const cleanDB = require('./cleanDB');
-
-// const eventData = require('./eventData.json');
-// // const classData = require('./classData.json');
-// // const professorData = require('./professorData.json');
-
-// db.once('open', async () => {
-//   // clean database
-//   await cleanDB("Event", "events");
-//   // await cleanDB("Class", "classes");
-//   // await cleanDB("Professor", "professors");
-
-//   // bulk create each model
-//   const events = await Event.insertMany(eventData);
-
-//   console.log('all done!');
-//   process.exit(0);
-// });
-
-const db = require('../config/connection');
-// const mongoose = require('mongoose');
+const db = require('../config/connection'); // Correct import
 const { User, Event, Comment } = require('../models');
 const data = require('./eventData.json'); // Path to your JSON file
 
 const seedDatabase = async () => {
   try {
-    // Connect to the database
-    // await db.connect('mongodb://localhost:27017/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
-    
     // Clear existing data
     await User.deleteMany({});
     await Event.deleteMany({});
     await Comment.deleteMany({});
-    
+
     // Seed users
     const users = await User.insertMany(data.users);
     
@@ -47,7 +21,7 @@ const seedDatabase = async () => {
     // Seed events
     const events = data.events.map(event => ({
       ...event,
-      userId: userMap[findUserByUsername(event.username)] // Replace with actual user ID
+      userId: userMap[findUserByUsername(event.username)] // Use the map to get userId
     }));
     const createdEvents = await Event.insertMany(events);
 
@@ -60,8 +34,8 @@ const seedDatabase = async () => {
     // Seed comments
     const comments = data.comments.map(comment => ({
       ...comment,
-      userId: userMap[findUserByUsername(comment.username)], // Replace with actual user ID
-      eventId: eventMap[findEventByTitle(comment.eventTitle)] // Replace with actual event ID
+      userId: userMap[findUserByUsername(comment.username)], // Use the map to get userId
+      eventId: eventMap[findEventByTitle(comment.eventTitle)] // Use the map to get eventId
     }));
     await Comment.insertMany(comments);
 
@@ -69,17 +43,17 @@ const seedDatabase = async () => {
   } catch (err) {
     console.error('Error seeding database:', err);
   } finally {
-    mongoose.connection.close();
+    db.close(); // Use db.close() instead of mongoose.connection.close()
   }
 };
 
 // Helper functions to map usernames to IDs
 const findUserByUsername = (username) => {
-  // Implement this function to return a username from the map
+  return username; // Assuming username directly maps; adjust as needed
 };
 
 const findEventByTitle = (title) => {
-  // Implement this function to return an event title from the map
+  return title; // Assuming title directly maps; adjust as needed
 };
 
 seedDatabase();

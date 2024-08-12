@@ -1,4 +1,4 @@
-const { Event, User } = require('../models');
+const { Event, User, Comment} = require('../models');
 const { formatDate } = require('../utils/formatDate');
 const {signToken, AuthenticationError} = require('../utils/auth');
 
@@ -16,7 +16,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     },
 
     events: async () => {
@@ -36,7 +36,16 @@ const resolvers = {
         createdAt: formatDate(event.createdAt),
       };
     },
+
+    comments: async (parent, { eventId }) => {
+      const comments = await Comment.find({ eventId }).populate('userId');
+      return comments.map(comment => ({
+        ...comment._doc,
+        createdAt: formatDate(comment.createdAt),
+      }));
+    },
   },
+
 
  Mutation: {
     addUser: async (parent, { username, email, password }) => {
@@ -50,13 +59,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw AuthenticationError;
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw AuthenticationError;
       }
 
       const token = signToken(user);
@@ -64,6 +73,7 @@ const resolvers = {
     },
 
     addEvent: async (parent, { title, description, imageUrl, eventDate, location, likesCount = 0 }, context) => {
+      console.log('Context User', context.user);
       if (context.user) {
         const event = await Event.create({
           title,
@@ -83,7 +93,7 @@ const resolvers = {
 
         return event;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     },
 
     updateEvent: async (parent, { id, title, description, imageUrl, eventDate, location, likesCount }, context) => {
@@ -92,7 +102,7 @@ const resolvers = {
 
         // Check if the user is the owner of the event
         if (event.userId.toString() !== context.user._id.toString()) {
-          throw new AuthenticationError('You are not authorized to update this event.');
+          throw AuthenticationError;
         }
 
         // Update event fields
@@ -107,7 +117,7 @@ const resolvers = {
 
         return updatedEvent;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     },
 
     deleteEvent: async (parent, { id }, context) => {
@@ -116,7 +126,7 @@ const resolvers = {
 
         // Check if the user is the owner of the event
         if (event.userId.toString() !== context.user._id.toString()) {
-          throw new AuthenticationError('You are not authorized to delete this event.');
+          throw AuthenticationError;
         }
 
         // Remove event
@@ -124,7 +134,23 @@ const resolvers = {
 
         return event;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
+    },
+
+    addComment: async (parent, { text, eventId }, context) => {
+      if (context.user) {
+        const comment = await Comment.create({
+          text,
+          userId: context.user._id,
+          eventId,
+        });
+
+        return {
+          ...comment._doc,
+          createdAt: formatDate(comment.createdAt),
+        };
+      }
+      throw AuthenticationError;
     },
   },
 };
