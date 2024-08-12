@@ -16,19 +16,20 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
-      throw AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     events: async () => {
-      const events = await Event.find({});
+      const events = await Event.find({}).populate('userId').populate('comments');
       return events.map(event => ({
         ...event._doc,
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
       }));
     },
+  
     event: async (_, { id }) => {
-      const event = await Event.findById(id);
+      const event = await Event.findById(id).populate('userId').populate('comments');
       return {
         ...event._doc,
         eventDate: formatDate(event.eventDate),
@@ -36,7 +37,8 @@ const resolvers = {
       };
     },
   },
-  Mutation: {
+
+ Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
@@ -48,28 +50,27 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
       return { token, user };
     },
 
-
-    addEvent: async (parent, { title, description, imageUrl, eventDate, likesCount = 0 }, context) => {
-      
+    addEvent: async (parent, { title, description, imageUrl, eventDate, location, likesCount = 0 }, context) => {
       if (context.user) {
         const event = await Event.create({
           title,
           description,
           imageUrl,
           eventDate,
+          location,
           likesCount,
           createdAt: new Date().toISOString(),
           userId: context.user._id
@@ -84,7 +85,47 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-  }
-};
 
+    updateEvent: async (parent, { id, title, description, imageUrl, eventDate, location, likesCount }, context) => {
+      if (context.user) {
+        const event = await Event.findById(id);
+
+        // Check if the user is the owner of the event
+        if (event.userId.toString() !== context.user._id.toString()) {
+          throw new AuthenticationError('You are not authorized to update this event.');
+        }
+
+        // Update event fields
+        const updatedEvent = await Event.findByIdAndUpdate(id, {
+          title,
+          description,
+          imageUrl,
+          eventDate,
+          location,
+          likesCount,
+        }, { new: true });
+
+        return updatedEvent;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    deleteEvent: async (parent, { id }, context) => {
+      if (context.user) {
+        const event = await Event.findById(id);
+
+        // Check if the user is the owner of the event
+        if (event.userId.toString() !== context.user._id.toString()) {
+          throw new AuthenticationError('You are not authorized to delete this event.');
+        }
+
+        // Remove event
+        await Event.findByIdAndDelete(id);
+
+        return event;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+  },
+};
 module.exports = resolvers;

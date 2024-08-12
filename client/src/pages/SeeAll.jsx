@@ -20,7 +20,7 @@ const SeeAll = () => {
             <EventsPage
               title={event.title}
               description={event.description}
-              imageUrl={event.imageUrl}
+              imageUrl={event.imageUrl || "https://media.istockphoto.com/id/458119657/photo/tentertainment-music-festival-england.jpg?s=612x612&w=0&k=20&c=HeOd_zmNAS3QQptcZrypASP9eZgu-hQNKSY7SrC_3rw="}
               likesCount={event.likesCount}
               onMoreInfo={() => console.log(`More information about ${event.title}`)}
             />

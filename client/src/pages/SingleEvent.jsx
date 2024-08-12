@@ -35,7 +35,7 @@ const SingleEvent = () => {
         cover={
           <img
             alt="Event"
-            src={event.imageUrl || 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbrisbanekids.com.au%2Fevent%2Fplaytopia%2F2024-04-05%2F&psig=AOvVaw0Qyq2zYABIEDQd7UHimTQ9&ust=1723529917955000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNDFw8rn7ocDFQAAAAAdAAAAABAE'} // Fallback if imageUrl is not available
+            src={event.imageUrl || 'https://media.istockphoto.com/id/458119657/photo/tentertainment-music-festival-england.jpg?s=612x612&w=0&k=20&c=HeOd_zmNAS3QQptcZrypASP9eZgu-hQNKSY7SrC_3rw='} // Fallback if imageUrl is not available
             style={{ maxHeight: '300px', objectFit: 'cover' }}
           />
         }

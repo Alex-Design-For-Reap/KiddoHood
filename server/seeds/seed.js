@@ -1,70 +1,85 @@
 
-// const mongoose = require('mongoose');
-// const Event = require('../models/Event');
+// const db = require('../config/connection');
+// const { Event} = require('../models');
+// const cleanDB = require('./cleanDB');
+
 // const eventData = require('./eventData.json');
-// const connectDB = require('../config/connection');
+// // const classData = require('./classData.json');
+// // const professorData = require('./professorData.json');
 
-// // Connect to the database
-// connectDB();
+// db.once('open', async () => {
+//   // clean database
+//   await cleanDB("Event", "events");
+//   // await cleanDB("Class", "classes");
+//   // await cleanDB("Professor", "professors");
 
-// const seedDatabase = async () => {
-//   try {
-//     // Clear existing events
-//     await Event.deleteMany({});
+//   // bulk create each model
+//   const events = await Event.insertMany(eventData);
 
-//     // Insert event data
-//     await Event.insertMany(eventData);
-
-//     console.log('Database seeded successfully!');
-//     mongoose.connection.close();
-//   } catch (error) {
-//     console.error('Error seeding database:', error);
-//     mongoose.connection.close();
-//   }
-// };
-
-// seedDatabase();
-
-
-
+//   console.log('all done!');
+//   process.exit(0);
+// });
 
 const db = require('../config/connection');
-const { Event} = require('../models');
-const cleanDB = require('./cleanDB');
+// const mongoose = require('mongoose');
+const { User, Event, Comment } = require('../models');
+const data = require('./eventData.json'); // Path to your JSON file
 
-const eventData = require('./eventData.json');
-// const classData = require('./classData.json');
-// const professorData = require('./professorData.json');
+const seedDatabase = async () => {
+  try {
+    // Connect to the database
+    // await db.connect('mongodb://localhost:27017/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+    
+    // Clear existing data
+    await User.deleteMany({});
+    await Event.deleteMany({});
+    await Comment.deleteMany({});
+    
+    // Seed users
+    const users = await User.insertMany(data.users);
+    
+    // Map user IDs for future use
+    const userMap = users.reduce((map, user) => {
+      map[user.username] = user._id;
+      return map;
+    }, {});
 
-db.once('open', async () => {
-  // clean database
-  await cleanDB("Event", "events");
-  // await cleanDB("Class", "classes");
-  // await cleanDB("Professor", "professors");
+    // Seed events
+    const events = data.events.map(event => ({
+      ...event,
+      userId: userMap[findUserByUsername(event.username)] // Replace with actual user ID
+    }));
+    const createdEvents = await Event.insertMany(events);
 
-  // bulk create each model
-  const events = await Event.insertMany(eventData);
-  // const classes = await Class.insertMany(classData);
-  // const professors = await Professor.insertMany(professorData);
+    // Map event IDs for future use
+    const eventMap = createdEvents.reduce((map, event) => {
+      map[event.title] = event._id;
+      return map;
+    }, {});
 
-  // for (newClass of classes) {
-  //   // randomly add each class to a school
-  //   const tempSchool = schools[Math.floor(Math.random() * schools.length)];
-  //   tempSchool.classes.push(newClass._id);
-  //   await tempSchool.save();
+    // Seed comments
+    const comments = data.comments.map(comment => ({
+      ...comment,
+      userId: userMap[findUserByUsername(comment.username)], // Replace with actual user ID
+      eventId: eventMap[findEventByTitle(comment.eventTitle)] // Replace with actual event ID
+    }));
+    await Comment.insertMany(comments);
 
-  //   // randomly add a professor to each class
-  //   const tempProfessor = professors[Math.floor(Math.random() * professors.length)];
-  //   newClass.professor = tempProfessor._id;
-  //   await newClass.save();
+    console.log('Seeding completed!');
+  } catch (err) {
+    console.error('Error seeding database:', err);
+  } finally {
+    mongoose.connection.close();
+  }
+};
 
-  //   // reference class on professor model, too
-  //   tempProfessor.classes.push(newClass._id);
-  //   await tempProfessor.save();
-  // }
+// Helper functions to map usernames to IDs
+const findUserByUsername = (username) => {
+  // Implement this function to return a username from the map
+};
 
-  console.log('all done!');
-  process.exit(0);
-});
+const findEventByTitle = (title) => {
+  // Implement this function to return an event title from the map
+};
 
-
+seedDatabase();

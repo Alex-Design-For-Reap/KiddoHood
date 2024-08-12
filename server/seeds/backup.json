@@ -1,0 +1,82 @@
+{
+    "users": [
+      {
+        "username": "john_doe",
+        "email": "john@example.com",
+        "password": "password123"
+      },
+      {
+        "username": "jane_doe",
+        "email": "jane@example.com",
+        "password": "password123"
+      },
+      {
+        "username": "sam_smith",
+        "email": "sam@example.com",
+        "password": "password123"
+      }
+    ],
+    "events": [
+      {
+        "title": "Family Picnic at Central Park",
+        "description": "A fun day out with the family at Central Park. Bring your picnic basket!",
+        "imageUrl": "https://www.parents.com/thmb/MmKfmt0sFMjjq_E_YC5Yh_ZQHr0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Parents-Stocksy_txp8304e7255Na300_Medium_3305596-1f0460deb8da4587aa6c9ffd54ea237a.jpg",
+        "eventDate": "2024-09-12T10:00:00Z",
+        "createdAt": "2024-08-03T10:00:00Z",
+        "location": "Central Park, NYC",
+        "likesCount": 5,
+        "userId": "john_doe",
+        "comments": [
+          {
+            "text": "Looking forward to it!",
+            "userId": "jane_doe"
+          },
+          {
+            "text": "I'll bring some snacks.",
+            "userId": "sam_smith"
+          }
+        ]
+      },
+      {
+        "title": "Outdoor Movie Night",
+        "description": "Join us for a movie under the stars.",
+        "imageUrl": "https://api.dicebear.com/7.x/miniavs/svg?seed=currentuser",
+        "eventDate": "2024-09-20T19:00:00Z",
+        "createdAt": "2024-08-03T10:00:00Z",
+        "location": "Prospect Park, Brooklyn",
+        "likesCount": 3,
+        "userId": "jane_doe",
+        "comments": [
+          {
+            "text": "Can't wait!",
+            "userId": "john_doe"
+          },
+          {
+            "text": "What movie are we watching?",
+            "userId": "sam_smith"
+          }
+        ]
+      },
+      {
+        "title": "Sam's Birthday Bash",
+        "description": "Celebrating Sam's 30th birthday with friends and family.",
+        "imageUrl": "https://media.istockphoto.com/id/458119657/photo/tentertainment-music-festival-england.jpg?s=612x612&w=0&k=20&c=HeOd_zmNAS3QQptcZrypASP9eZgu-hQNKSY7SrC_3rw=",
+        "eventDate": "2024-10-05T18:00:00Z",
+        "createdAt": "2024-08-03T10:00:00Z",
+        "location": "Sam's House, Brooklyn",
+        "likesCount": 10,
+        "userId": "sam_smith",
+        "comments": [
+          {
+            "text": "Happy Birthday, Sam!",
+            "userId": "john_doe"
+          },
+          {
+            "text": "Can't wait to celebrate!",
+            "userId": "jane_doe"
+          }
+        ]
+      }
+    ]
+  }
+  

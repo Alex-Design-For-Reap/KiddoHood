@@ -22,6 +22,17 @@ const typeDefs = `
     likesCount: Int! # Ensure likesCount is included in the Event type
     eventDate: String!
     createdAt: String!
+    location: String!
+    userId: User
+    comments: [Comment]
+  }
+
+type Comment {
+    _id: ID!
+    text: String!
+    userId: User
+    eventId: Event
+    createdAt: String!
   }
 
   type Query {
@@ -48,8 +59,23 @@ const typeDefs = `
       title: String!, 
       description: String!, 
       imageUrl: String!,
-      eventDate: String!
+      location: String!,
+      eventDate: String!,
       likesCount: Int # Allow likesCount to be passed in the mutation
+    ): Event
+
+    updateEvent(
+      id: ID!,
+      title: String, 
+      description: String, 
+      imageUrl: String,
+      location: String,
+      eventDate: String,
+      likesCount: Int
+    ): Event
+
+    deleteEvent(
+      id: ID!
     ): Event
   }
 `;
