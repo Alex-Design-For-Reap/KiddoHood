@@ -85,12 +85,19 @@ const Register = () => {
           <Link to="/Dashboard"> Dashboard.</Link>
         </p>
       ) : (
-      <Form 
+      <Form
         {...formItemLayout}
         form={form}
         name="register"
         onFinish={handleFormSubmit} // Use handleFormSubmit here
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 600,
+          margin:'auto'
+          // display: 'flex',
+          // flexDirection: 'column',
+          // justifyContent: 'center',
+          // layout: 'vertical'
+
+         }}
         scrollToFirstError
         >
         <Form.Item

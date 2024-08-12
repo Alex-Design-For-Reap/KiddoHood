@@ -137,17 +137,13 @@ const App = () => {
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              // display: 'flex',
+              // justifyContent: 'center',
+              // alignContent: 'center',
+              
             }}
             >
-            {/* {Auth.loggedIn() ? (
-              <> */}
               <Outlet />
-              {/* </>
-            ) : (
-              <>
-              <h2>Please log in to continue</h2>
-              </>
-            )} */}
           </div>
         </Content>
 

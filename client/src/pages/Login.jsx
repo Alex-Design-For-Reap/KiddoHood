@@ -57,6 +57,7 @@ const Login = (props) => {
           }}
           style={{
             maxWidth: 360,
+            margin: 'auto',
           }}
           onFinish={handleFormSubmit}
         >
