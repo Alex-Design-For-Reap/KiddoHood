@@ -44,7 +44,7 @@ const Login = (props) => {
 
   return (
     <>
-      {Auth.loggedIn ? (
+      {Auth.loggedIn() ? (
         <p>
           You are already Logged in! You may now head to{' '}
           <Link to="/Dashboard"> Dashboard.</Link>
