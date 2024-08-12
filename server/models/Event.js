@@ -34,6 +34,11 @@ const eventSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  comments: [
+    { type: Schema.Types.ObjectId,
+    ref: 'Comment' 
+  }
+],
 });
 
 const Event = model('Event', eventSchema);

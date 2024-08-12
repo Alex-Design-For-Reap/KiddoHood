@@ -18,7 +18,7 @@ const typeDefs = `
     _id: ID!
     title: String!
     description: String!
-    imageUrl: String!
+    imageUrl: String
     likesCount: Int! # Ensure likesCount is included in the Event type
     eventDate: String!
     createdAt: String!
@@ -30,8 +30,8 @@ const typeDefs = `
 type Comment {
     _id: ID!
     text: String!
-    userId: ID!
-    eventId: ID!
+    userId: User
+    eventId: Event
     createdAt: String!
   }
 
@@ -59,7 +59,7 @@ type Comment {
     addEvent(
       title: String!, 
       description: String!, 
-      imageUrl: String!,
+      imageUrl: String,
       location: String!,
       eventDate: String!,
       likesCount: Int # Allow likesCount to be passed in the mutation

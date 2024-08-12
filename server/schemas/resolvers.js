@@ -20,22 +20,58 @@ const resolvers = {
     },
 
     events: async () => {
-      const events = await Event.find({}).populate('userId').populate('comments');
+      const events = await Event.find({})
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'userId',
+            select: 'username',
+          },
+        })
+        .populate('userId');
+      
       return events.map(event => ({
         ...event._doc,
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
       }));
     },
-  
+    
     event: async (_, { id }) => {
-      const event = await Event.findById(id).populate('userId').populate('comments');
+      const event = await Event.findById(id)
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'userId',
+            select: 'username',
+          },
+        })
+        .populate('userId');
+      
       return {
         ...event._doc,
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
       };
     },
+
+    // events: async () => {
+    //   const events = await Event.find({}).populate('userId').populate('comments');
+    //   return events.map(event => ({
+    //     ...event._doc,
+    //     eventDate: formatDate(event.eventDate),
+    //     createdAt: formatDate(event.createdAt),
+    //   }));
+    // },
+  
+    // event: async (_, { id }) => {
+    //   const event = await Event.findById(id).populate('userId').populate('comments');
+    //   return {
+    //     ...event._doc,
+    //     eventDate: formatDate(event.eventDate),
+    //     createdAt: formatDate(event.createdAt),
+    //   };
+    // },
 
     comments: async (parent, { eventId }) => {
       const comments = await Comment.find({ eventId }).populate('userId');
@@ -73,7 +109,7 @@ const resolvers = {
     },
 
     addEvent: async (parent, { title, description, imageUrl, eventDate, location, likesCount = 0 }, context) => {
-      console.log('Context User', context.user);
+      console.log(context.user);
       if (context.user) {
         const event = await Event.create({
           title,
