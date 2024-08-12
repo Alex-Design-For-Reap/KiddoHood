@@ -25,8 +25,8 @@ export const LOGIN_USER = gql`
     `;
 
     export const ADD_EVENT = gql`
-    mutation addEvent($title: String!, $description: String!, $imageUrl: String!, $eventDate: String!) {
-        addEvent(title: $title, description: $description, imageUrl: $imageUrl, eventDate: $eventDate) {
+    mutation addEvent($title: String!, $description: String!, $imageUrl: String!, $eventDate: String!, $likesCount: Int) {
+        addEvent(title: $title, description: $description, imageUrl: $imageUrl, eventDate: $eventDate, likesCount: $likesCount) {
         _id
         title
         description

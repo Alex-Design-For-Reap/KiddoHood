@@ -62,27 +62,29 @@ const resolvers = {
     },
 
 
-    addEvent: async (parent, { title, description, imageUrl, eventDate }, context) => {
-
+    addEvent: async (parent, { title, description, imageUrl, eventDate, likesCount = 0 }, context) => {
+      
       if (context.user) {
-      const newEvent = new Event({
-        title,
-        description,
-        imageUrl,
+        const event = await Event.create({
+          title,
+          description,
+          imageUrl,
           eventDate,
-          createdAt: new Date().toISOString(), // automatically set the current date and time
-        likesCount: 0, // default value
-      });
-        const savedEvent = await newEvent.save();
-        return {
-          ...savedEvent._doc,
-          eventDate: formatDate(savedEvent.eventDate),
-          createdAt: formatDate(savedEvent.createdAt),
-        };
+          likesCount,
+          createdAt: new Date().toISOString(),
+          userId: context.user._id
+        });
+
+        // Optionally, update the user's event list
+        await User.findByIdAndUpdate(context.user._id, {
+          $push: { events: event._id }
+        });
+
+        return event;
       }
-      throw AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('You need to be logged in!');
     },
-  },
+  }
 };
 
 module.exports = resolvers;

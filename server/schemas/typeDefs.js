@@ -19,7 +19,7 @@ const typeDefs = `
     title: String!
     description: String!
     imageUrl: String!
-    likesCount: Int!
+    likesCount: Int! # Ensure likesCount is included in the Event type
     eventDate: String!
     createdAt: String!
   }
@@ -49,6 +49,7 @@ const typeDefs = `
       description: String!, 
       imageUrl: String!,
       eventDate: String!
+      likesCount: Int # Allow likesCount to be passed in the mutation
     ): Event
   }
 `;
