@@ -18,9 +18,13 @@ const Cards = ({ title, description, imageUrl, likesCount, onMoreInfo }) => (
       />
     }
     actions={[
-      <Button type="primary" onClick={onMoreInfo}>
-        More Information
-      </Button>,
+      <div key="more-info">
+        {onMoreInfo}
+
+      </div>
+      // <Button type="primary" onClick={onMoreInfo}>
+      //   More Information
+      // </Button>,
     ]}
   >
     <Meta

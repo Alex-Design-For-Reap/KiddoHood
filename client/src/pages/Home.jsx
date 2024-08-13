@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section */}{}
       <section style={{ textAlign: 'center', padding: '50px' }}>
         {Auth.loggedIn()? (
           <>

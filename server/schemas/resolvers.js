@@ -175,7 +175,7 @@ const resolvers = {
           text,
           userId: context.user._id,
           eventId,
-          username: context.user.username, //<<<<<<<<<<
+          // username: context.user.username, //<<<<<<<<<<
         });
 
             // Populate the user details, especially username
