@@ -7,6 +7,7 @@ const typeDefs = `
     email: String!
     password: String!
     events: [Event]
+    comments: [Comment]
   }
 
   type Auth {
@@ -32,6 +33,7 @@ type Comment {
     text: String!
     userId: User
     eventId: Event
+    username: String!
     createdAt: String!
   }
 
@@ -40,7 +42,7 @@ type Comment {
     user(userId: ID!): User
     me: User
     events: [Event]
-    event(id: ID!): Event
+    event(eventId: ID!): Event
     comments(eventId: ID!): [Comment]
   }
 
@@ -83,8 +85,11 @@ type Comment {
       text: String!,
       userId: ID!,
       eventId: ID!
+      username: String! # Include username as an argument
     ): Comment
   }
+
+
 `;
 
 module.exports = typeDefs;

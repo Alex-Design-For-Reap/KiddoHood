@@ -19,6 +19,7 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    // need to chech which one here is working <<<<<<<<<<
     events: async () => {
       const events = await Event.find({})
         .populate({
@@ -36,9 +37,18 @@ const resolvers = {
         createdAt: formatDate(event.createdAt),
       }));
     },
+
+    // events: async () => {
+    //   const events = await Event.find({}).populate('userId').populate('comments');
+    //   return events.map(event => ({
+    //     ...event._doc,
+    //     eventDate: formatDate(event.eventDate),
+    //     createdAt: formatDate(event.createdAt),
+    //   }));
+    // },
     
-    event: async (_, { id }) => {
-      const event = await Event.findById(id)
+    event: async (parent, { eventId }) => {
+      const event = await Event.findById(eventId)
         .populate({
           path: 'comments',
           populate: {
@@ -53,25 +63,11 @@ const resolvers = {
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
       };
-    },
 
-    // events: async () => {
-    //   const events = await Event.find({}).populate('userId').populate('comments');
-    //   return events.map(event => ({
-    //     ...event._doc,
-    //     eventDate: formatDate(event.eventDate),
-    //     createdAt: formatDate(event.createdAt),
-    //   }));
-    // },
-  
-    // event: async (_, { id }) => {
-    //   const event = await Event.findById(id).populate('userId').populate('comments');
-    //   return {
-    //     ...event._doc,
-    //     eventDate: formatDate(event.eventDate),
-    //     createdAt: formatDate(event.createdAt),
-    //   };
-    // },
+      // return Event.findOne({ _id: eventId });
+    },
+    
+
 
     comments: async (parent, { eventId }) => {
       const comments = await Comment.find({ eventId }).populate('userId');
@@ -179,14 +175,19 @@ const resolvers = {
           text,
           userId: context.user._id,
           eventId,
+          username: context.user.username, //<<<<<<<<<<
         });
 
-        return {
-          ...comment._doc,
-          createdAt: formatDate(comment.createdAt),
-        };
-      }
-      throw AuthenticationError;
+            // Populate the user details, especially username
+      const populatedComment = await Comment.findById(comment._id).populate('userId');
+
+      return {
+        ...populatedComment._doc,
+        createdAt: formatDate(populatedComment.createdAt),
+        username: populatedComment.userId.username, // Extract username from populated userId
+      };
+    }
+      throw AuthenticationError;    
     },
   },
 };

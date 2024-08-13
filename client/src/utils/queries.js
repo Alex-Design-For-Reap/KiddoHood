@@ -40,26 +40,30 @@ export const QUERY_USERS = gql`
         likesCount
         eventDate
         createdAt
+        location
         }
     }
     `;
+
+    // comments {
+    //     _id
+    //     commentText
+    //     createdAt
+    //     username
+    // }
+
 
     export const QUERY_SINGLE_EVENT = gql`
     query event($eventId: ID!) {
         event(eventId: $eventId) {
         _id
         title
+        location
         description
         imageUrl
         likesCount
         eventDate
         createdAt
-        comments {
-            _id
-            commentText
-            createdAt
-            username
-        }
         }
     }
     `;
@@ -74,6 +78,7 @@ export const QUERY_USERS = gql`
             _id
             title
             description
+            location
             imageUrl
             likesCount
             eventDate
@@ -91,7 +96,7 @@ export const QUERY_USERS = gql`
         email
         comments {
             _id
-            commentText
+            text
             createdAt
             event {
             _id

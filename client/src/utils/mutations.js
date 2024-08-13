@@ -42,10 +42,10 @@ mutation addEevent($title: String!, $description: String!, $location: String!, $
 `;
 
 export const ADD_COMMENT = gql`
-mutation addComment($eventId: ID!, $commentText: String!) {
-    addComment(eventId: $eventId, commentText: $commentText) {
+mutation addComment($eventId: ID!, $text: String!) {
+    addComment(eventId: $eventId, text: $text) {
     _id
-    commentText
+    text
     createdAt
     username
     }
@@ -75,16 +75,6 @@ mutation removeEvent($eventId: ID!) {
 }
 `;
 
-export const REMOVE_COMMENT = gql`
-mutation removeComment($eventId: ID!, $commentId: ID!) {
-    removeComment(eventId: $eventId, commentId: $commentId) {
-    _id
-    commentText
-    createdAt
-    username
-    }
-}
-`;
 
 export const REMOVE_USER = gql`
 mutation removeUser {
@@ -120,16 +110,6 @@ mutation updateEvent($eventId: ID!, $title: String!, $description: String!, $ima
 }
 `;
 
-export const UPDATE_COMMENT = gql`
-mutation updateComment($eventId: ID!, $commentId: ID!, $commentText: String!) {
-    updateComment(eventId: $eventId, commentId: $commentId, commentText: $commentText) {
-    _id
-    commentText
-    createdAt
-    username
-    }
-}
-`;
 
 export const UPDATE_LIKES = gql`
 mutation updateLikes($eventId: ID!, $likesCount: Int!) {

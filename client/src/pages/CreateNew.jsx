@@ -86,6 +86,11 @@ const CreateNew = () => {
     <Button type="primary" htmlType="submit">
       Create Event
     </Button>
+      {error && (
+        <div className="col-12 my-3 bg-danger text-white p-3">
+          {error.message}
+        </div>
+      )}
   </Form.Item>
 </Form>        </>
       ) : (

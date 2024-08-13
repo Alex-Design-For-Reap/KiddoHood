@@ -1,7 +1,7 @@
 // import React from 'react';
 import { Col, Row } from 'antd';
 // import Cards from '../components/Card';
-import { useQuery, gql} from '@apollo/client';
+import { useQuery} from '@apollo/client';
 import EventsPage from '../components/Card';
 import { QUERY_EVENTS } from '../utils/queries';
 
