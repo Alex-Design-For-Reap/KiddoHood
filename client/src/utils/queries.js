@@ -33,37 +33,43 @@ export const QUERY_USERS = gql`
     export const QUERY_EVENTS = gql`
     query events {
         events {
-        _id
-        title
-        description
-        imageUrl
-        likesCount
-        eventDate
-        createdAt
-        location
+            _id
+            title
+            location
+            likesCount
+            imageUrl
+            eventDate
+            description
+            createdAt
+            comments {
+                _id
+                text
+                userId {
+                    username
+                }
+            }
         }
     }
     `;
 
-    // comments {
-    //     _id
-    //     commentText
-    //     createdAt
-    //     username
-    // }
-
-
     export const QUERY_SINGLE_EVENT = gql`
     query event($eventId: ID!) {
         event(eventId: $eventId) {
-        _id
-        title
-        location
-        description
-        imageUrl
-        likesCount
-        eventDate
-        createdAt
+            _id
+            title
+            location
+            likesCount
+            imageUrl
+            eventDate
+            description
+            createdAt
+            comments {
+                _id
+                text
+                userId {
+                    username
+                }
+            }
         }
     }
     `;

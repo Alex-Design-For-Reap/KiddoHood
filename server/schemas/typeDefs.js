@@ -33,7 +33,6 @@ type Comment {
     text: String!
     userId: User
     eventId: Event
-    username: String!
     createdAt: String!
   }
 
@@ -85,7 +84,6 @@ type Comment {
       text: String!,
       userId: ID!,
       eventId: ID!
-      username: String! # Include username as an argument
     ): Comment
   }
 

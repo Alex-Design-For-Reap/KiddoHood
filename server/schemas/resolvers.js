@@ -175,18 +175,26 @@ const resolvers = {
           text,
           userId: context.user._id,
           eventId,
+          createdAt: new Date().toISOString(),
           // username: context.user.username, //<<<<<<<<<<
         });
 
-            // Populate the user details, especially username
-      const populatedComment = await Comment.findById(comment._id).populate('userId');
+          // Push the comment to the event's comments array
+          await Event.findByIdAndUpdate(
+            eventId,
+            { $push: { comments: comment._id } },
+            { new: true }
+          );
 
-      return {
-        ...populatedComment._doc,
-        createdAt: formatDate(populatedComment.createdAt),
-        username: populatedComment.userId.username, // Extract username from populated userId
-      };
-    }
+          // Populate the user details, especially username
+        const populatedComment = await Comment.findById(comment._id).populate('userId');
+
+        return {
+          ...populatedComment._doc,
+          createdAt: formatDate(populatedComment.createdAt),
+          username: populatedComment.userId.username, // Extract username from populated userId
+        };
+      }
       throw AuthenticationError;    
     },
   },
