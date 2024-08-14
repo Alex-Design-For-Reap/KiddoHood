@@ -47,13 +47,25 @@ const SingleEvent = () => {
             style={{ maxHeight: '300px', objectFit: 'cover' }}
           />
         }
-      >
+        >
         <h1>Title: {event.title}</h1>
         <p>Descritpion: {event.description}</p>
         <p>Location: {event.location}</p>
         <p>Date: {event.eventDate ? new Date(event.eventDate).toLocaleDateString() : 'No Date Available'}</p> {/* Format date if needed */}
         <p>Likes: {event.likesCount}</p>
-        <p>Created At: {event.createdAt ? new Date(event.createdAt).toLocaleDateString() : 'No Created Date Available'}</p>      </Card>
+        <p>Created At: {event.createdAt ? new Date(event.createdAt).toLocaleDateString() : 'No Created Date Available'}</p>
+        <p>Comments: {event.comment}</p>
+        <h3>Comments:</h3>
+      {event.comments && event.comments.length > 0 ? (
+        event.comments.map(comment => (
+          <div key={comment._id}>
+            <p><strong>{comment.userId.username}:</strong> {comment.text}</p>
+          </div>
+        ))
+      ) : (
+        <p>No comments yet.</p>
+      )}
+      </Card>
 
       {/* Comment List */}
       {/* <List

@@ -41,13 +41,6 @@ export const QUERY_USERS = gql`
             eventDate
             description
             createdAt
-            comments {
-                _id
-                text
-                userId {
-                    username
-                }
-            }
         }
     }
     `;
