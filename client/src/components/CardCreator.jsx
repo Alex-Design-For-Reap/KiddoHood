@@ -18,12 +18,8 @@ const CardCreator = ({ title, description, imageUrl, likesCount, onEdit, onDelet
       />
     }
     actions={[
-      <Button type="primary" icon={<EditOutlined />} onClick={onEdit}>
-        Edit
-      </Button>,
-      <Button type="primary" danger icon={<DeleteOutlined />} onClick={onDelete}>
-        Delete
-      </Button>,
+      <div key="edit"> {onEdit} </div>,
+      <div key="delete"> {onDelete} </div>
     ]}
   >
     <Meta
@@ -38,4 +34,17 @@ const CardCreator = ({ title, description, imageUrl, likesCount, onEdit, onDelet
   </Card>
 );
 
-export default CardCreator;
+const DashboardPage = ({ title, description, imageUrl, likesCount, onEdit, onDelete }) => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <CardCreator
+      title={title}
+      description={description}
+      imageUrl={imageUrl}
+      likesCount={likesCount}
+      onEdit={onEdit}
+      onDelete={onDelete}
+    />
+  </div>
+);
+
+export default DashboardPage;

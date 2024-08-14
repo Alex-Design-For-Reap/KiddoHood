@@ -21,13 +21,27 @@ export const QUERY_USERS = gql`
     `;
 
     export const QUERY_ME = gql`
-    query me {
+    query Query {
         me {
-        _id
-        username
-        email
+            _id
+            username
+            password
+            email
+            comments {
+            text
+            }
+            events {
+            title
+            _id
+            location
+            likesCount
+            imageUrl
+            eventDate
+            description
+            createdAt
+            }
         }
-    }
+}
     `;
 
     export const QUERY_EVENTS = gql`

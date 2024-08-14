@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import { HeartOutlined } from '@ant-design/icons';
-import { Avatar, Card, Button, Badge } from 'antd';
+import { Avatar, Card, Badge } from 'antd';
 
 const { Meta } = Card;
 
@@ -20,11 +20,8 @@ const Cards = ({ title, description, imageUrl, likesCount, onMoreInfo }) => (
     actions={[
       <div key="more-info">
         {onMoreInfo}
-
       </div>
-      // <Button type="primary" onClick={onMoreInfo}>
-      //   More Information
-      // </Button>,
+
     ]}
   >
     <Meta

@@ -24,7 +24,6 @@ const SeeAll = () => {
               imageUrl={event.imageUrl || "https://media.istockphoto.com/id/458119657/photo/tentertainment-music-festival-england.jpg?s=612x612&w=0&k=20&c=HeOd_zmNAS3QQptcZrypASP9eZgu-hQNKSY7SrC_3rw="}
               likesCount={event.likesCount}
               //add link to event id to view more info
-              // onMoreInfo={() => console.log(`More information about ${event.title}`)}
               onMoreInfo={
                 <Link to={`/event/${event._id}`}>
                   <Button type="primary">more information</Button>
