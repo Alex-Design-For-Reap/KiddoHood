@@ -42,15 +42,20 @@ mutation addEevent($title: String!, $description: String!, $location: String!, $
 `;
 
 export const ADD_COMMENT = gql`
-mutation addComment($eventId: ID!, $text: String!) {
-    addComment(eventId: $eventId, text: $text) {
-    _id
-    text
-    createdAt
-    username
+mutation AddComment($text: String!, $userId: ID!, $eventId: ID!) {
+  addComment(text: $text, userId: $userId, eventId: $eventId) {
+    userId {
+      username
     }
+    _id
+    createdAt
+    eventId {
+      _id
+    }
+  }
 }
 `;
+
 
 export const LIKE_EVENT = gql`
 mutation likeEvent($eventId: ID!) {

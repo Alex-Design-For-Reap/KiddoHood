@@ -35,17 +35,12 @@ const resolvers = {
         ...event._doc,
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
+        comments: event.comments.map(comment => ({
+          ...comment._doc,
+          createdAt: formatDate(comment.createdAt),
+        })),
       }));
     },
-
-    // events: async () => {
-    //   const events = await Event.find({}).populate('userId').populate('comments');
-    //   return events.map(event => ({
-    //     ...event._doc,
-    //     eventDate: formatDate(event.eventDate),
-    //     createdAt: formatDate(event.createdAt),
-    //   }));
-    // },
     
     event: async (parent, { eventId }) => {
       const event = await Event.findById(eventId)
@@ -62,9 +57,11 @@ const resolvers = {
         ...event._doc,
         eventDate: formatDate(event.eventDate),
         createdAt: formatDate(event.createdAt),
+        comments: event.comments.map(comment => ({
+          ...comment._doc,
+          createdAt: formatDate(comment.createdAt),
+        })),
       };
-
-      // return Event.findOne({ _id: eventId });
     },
     
 
@@ -176,6 +173,7 @@ const resolvers = {
           userId: context.user._id,
           eventId,
           createdAt: new Date().toISOString(),
+          // createdAt: formatDate(new Date()), //<<<<<<<<<<
           // username: context.user.username, //<<<<<<<<<<
         });
 
