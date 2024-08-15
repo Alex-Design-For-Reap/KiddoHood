@@ -6,7 +6,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import PleaseLogin from '../components/PleaseLogin';
 import { QUERY_ME } from '../utils/queries';
-import { DELETE_EVENT } from '../utils/mutations';
+import { DELETE_EVENT} from '../utils/mutations';
 import DashboardPage from '../components/CardCreator';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -15,13 +15,22 @@ const Dashboard = () => {
   const me = data?.me || {};
 
   const [deleteEvent] = useMutation(DELETE_EVENT, {
-    onCompleted: () => {
+    onCompleted: () => {4
       refetch(); // Refetch the QUERY_ME query after deletion to refresh the page
     },
     onError: (err) => {
       console.error("Failed to delete event:", err.message);
     }
   });
+
+  // const [updateEvent] = useMutation(UPDATE_EVENT, {
+  //   onCompleted: () => {
+  //     refetch();
+  //   },
+  //   onError: (err) => {
+  //     console.error("Failed to update event:"), err.message
+  //   }
+  // });
 
   // Handle delete event
   const handleDelete = async (eventId) => {
@@ -33,6 +42,13 @@ const Dashboard = () => {
       console.error('error deleting event:', err.message);
     }
   };
+
+  // //handle edit event
+  // const history = useHistory();
+
+  // const handleUpdate =  async (eventId) => {
+  //   history.push(`/edit/${eventId}`);
+  // };
   
   // Check if the user is logged in
   if (!Auth.loggedIn()) {
@@ -44,9 +60,6 @@ const Dashboard = () => {
     return <div>Loading...</div>;
   }
 
-  // const handleEdit = (eventId) => {
-  //   console.log('Edit event:', eventId);
-  // }
 
   return (
     <div>
@@ -73,8 +86,9 @@ const Dashboard = () => {
                 </Button>
             }
             onEdit={
-              <Link to={`/event/${event._id}`}>
-                <Button type="primary" icon={<EditOutlined />}>
+              <Link to={`/edit/${event._id}`}>
+                <Button type="primary" icon={<EditOutlined />}
+                  >
                   Edit
                 </Button>
               </Link>

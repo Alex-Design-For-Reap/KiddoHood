@@ -81,18 +81,6 @@ mutation deleteEvent($deleteEventId: ID!) {
   }
 `;
 
-// mutation DeleteEvent($deleteEventId: ID!) {
-//     deleteEvent(id: $deleteEventId) {
-//       _id
-//       createdAt
-//       description
-//       eventDate
-//       imageUrl
-//       likesCount
-//       location
-//       title
-//     }
-//   }
 
 
 export const REMOVE_USER = gql`
@@ -116,18 +104,20 @@ mutation updateUser($username: String!, $email: String!, $password: String!) {
 `;
 
 export const UPDATE_EVENT = gql`
-mutation updateEvent($eventId: ID!, $title: String!, $description: String!, $imageUrl: String!, $eventDate: String!) {
-    updateEvent(eventId: $eventId, title: $title, description: $description, imageUrl: $imageUrl, eventDate: $eventDate) {
+mutation Mutation($updateEventId: ID!, $title: String, $description: String, $imageUrl: String, $location: String, $eventDate: String, $likesCount: Int) {
+  updateEvent(id: $updateEventId, title: $title, description: $description, imageUrl: $imageUrl, location: $location, eventDate: $eventDate, likesCount: $likesCount) {
     _id
     title
-    description
+    location
     imageUrl
-    likesCount
     eventDate
+    description
+    likesCount
     createdAt
-    }
+  }
 }
 `;
+
 
 
 export const UPDATE_LIKES = gql`

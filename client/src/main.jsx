@@ -18,6 +18,7 @@ import SingleEvent from './pages/SingleEvent';
 import MyFavorites from './pages/MyFavorites';
 import SeeAll from './pages/SeeAll';
 import CreateNew from './pages/CreateNew';
+import EditEvent from './pages/EditEvent';
 
 const router = createBrowserRouter ([
   {
@@ -60,7 +61,11 @@ const router = createBrowserRouter ([
       {
         path: 'CreateNew',
         element: <CreateNew/>
-      },      
+      },     
+      {
+        path: '/edit/:eventId',
+        element: <EditEvent />
+      } 
     ]
   }
 ]);

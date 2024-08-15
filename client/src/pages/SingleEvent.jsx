@@ -104,7 +104,7 @@ const SingleEvent = () => {
 
           <Modal
             title="Add a Comment"
-            visible={modalVisible}
+            open={modalVisible}
             onOk={handleAddComment}
             onCancel={() => setModalVisible(false)}
           >
