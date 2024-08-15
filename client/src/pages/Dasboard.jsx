@@ -1,12 +1,11 @@
-// Dashboard.jsx
-// import React from 'react';
-import { Button, Col, Row } from 'antd';
+import React from 'react';
+import { Button, Col, Row, Modal } from 'antd'; // Import Modal here
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import PleaseLogin from '../components/PleaseLogin';
 import { QUERY_ME } from '../utils/queries';
-import { DELETE_EVENT} from '../utils/mutations';
+import { DELETE_EVENT } from '../utils/mutations';
 import DashboardPage from '../components/CardCreator';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -15,7 +14,7 @@ const Dashboard = () => {
   const me = data?.me || {};
 
   const [deleteEvent] = useMutation(DELETE_EVENT, {
-    onCompleted: () => {4
+    onCompleted: () => {
       refetch(); // Refetch the QUERY_ME query after deletion to refresh the page
     },
     onError: (err) => {
@@ -23,33 +22,29 @@ const Dashboard = () => {
     }
   });
 
-  // const [updateEvent] = useMutation(UPDATE_EVENT, {
-  //   onCompleted: () => {
-  //     refetch();
-  //   },
-  //   onError: (err) => {
-  //     console.error("Failed to update event:"), err.message
-  //   }
-  // });
-
-  // Handle delete event
-  const handleDelete = async (eventId) => {
-    try {
-      await deleteEvent({
-        variables: { deleteEventId: eventId },
-      });
-    } catch (err) {
-      console.error('error deleting event:', err.message);
-    }
+  // Handle delete event with confirmation
+  const handleDelete = (eventId) => {
+    Modal.confirm({
+      title: 'Are you sure you want to delete this event?',
+      content: 'This action cannot be undone.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: async () => {
+        try {
+          await deleteEvent({
+            variables: { deleteEventId: eventId },
+          });
+        } catch (err) {
+          console.error('Error deleting event:', err.message);
+        }
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   };
 
-  // //handle edit event
-  // const history = useHistory();
-
-  // const handleUpdate =  async (eventId) => {
-  //   history.push(`/edit/${eventId}`);
-  // };
-  
   // Check if the user is logged in
   if (!Auth.loggedIn()) {
     return <PleaseLogin />;
@@ -59,7 +54,6 @@ const Dashboard = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <div>
@@ -79,23 +73,22 @@ const Dashboard = () => {
                 imageUrl={event.imageUrl}
                 likesCount={event.likesCount}
                 onDelete={
-                <Button type="primary" danger icon={<DeleteOutlined />}
-                  onClick={() => handleDelete(event._id)}
-                >
-                  Delete
-                </Button>
-            }
-            onEdit={
-              <Link to={`/edit/${event._id}`}>
-                <Button type="primary" icon={<EditOutlined />}
+                  <Button type="primary" danger icon={<DeleteOutlined />}
+                    onClick={() => handleDelete(event._id)}
                   >
-                  Edit
-                </Button>
-              </Link>
-            }
+                    Delete
+                  </Button>
+                }
+                onEdit={
+                  <Link to={`/edit/${event._id}`}>
+                    <Button type="primary" icon={<EditOutlined />}>
+                      Edit
+                    </Button>
+                  </Link>
+                }
               />
             </Col>
-            ))
+          ))
         ) : (
           <div>No events found.</div>
         )}
