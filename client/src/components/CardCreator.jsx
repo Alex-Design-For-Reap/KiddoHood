@@ -1,6 +1,6 @@
 // import React from 'react';
 import { HeartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Avatar, Card, Button, Badge } from 'antd';
+import { Avatar, Card, Badge } from 'antd';
 
 const { Meta } = Card;
 

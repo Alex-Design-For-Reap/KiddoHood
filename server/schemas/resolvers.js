@@ -158,6 +158,9 @@ const resolvers = {
           throw AuthenticationError;
         }
 
+        // Also remove the associated comments
+        await Comment.deleteMany({ eventId: id });
+
         // Remove event
         await Event.findByIdAndDelete(id);
 

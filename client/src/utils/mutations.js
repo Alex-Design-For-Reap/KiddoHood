@@ -66,19 +66,33 @@ mutation likeEvent($eventId: ID!) {
 }
 `;
 
-export const REMOVE_EVENT = gql`
-mutation removeEvent($eventId: ID!) {
-    removeEvent(eventId: $eventId) {
-    _id
-    title
-    description
-    imageUrl
-    likesCount
-    eventDate
-    createdAt
+export const DELETE_EVENT = gql`
+mutation deleteEvent($deleteEventId: ID!) {
+    deleteEvent(id: $deleteEventId) {
+      _id
+      createdAt
+      description
+      eventDate
+      imageUrl
+      likesCount
+      location
+      title
     }
-}
+  }
 `;
+
+// mutation DeleteEvent($deleteEventId: ID!) {
+//     deleteEvent(id: $deleteEventId) {
+//       _id
+//       createdAt
+//       description
+//       eventDate
+//       imageUrl
+//       likesCount
+//       location
+//       title
+//     }
+//   }
 
 
 export const REMOVE_USER = gql`
