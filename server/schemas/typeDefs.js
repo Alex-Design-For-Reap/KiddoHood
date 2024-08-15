@@ -52,6 +52,10 @@ type Comment {
       password: String!
     ): Auth
 
+    deleteUser(
+      userId: ID!
+    ): User
+
     login(
       email: String!, 
       password: String!

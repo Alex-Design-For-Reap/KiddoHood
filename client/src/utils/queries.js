@@ -73,6 +73,7 @@ export const QUERY_USERS = gql`
             comments {
                 _id
                 text
+                createdAt
                 userId {
                     username
                 }
@@ -80,6 +81,7 @@ export const QUERY_USERS = gql`
         }
     }
     `;
+
 
     export const QUERY_ME_EVENTS = gql`
     query me {

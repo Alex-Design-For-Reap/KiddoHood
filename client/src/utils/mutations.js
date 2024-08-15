@@ -83,14 +83,13 @@ mutation deleteEvent($deleteEventId: ID!) {
 
 
 
-export const REMOVE_USER = gql`
-mutation removeUser {
-    removeUser {
-    _id
-    username
-    email
+export const DELETE_USER = gql`
+  mutation deleteUser($userId: ID!) {
+    deleteUser(userId: $userId) {
+      _id
+      username
     }
-}
+  }
 `;
 
 export const UPDATE_USER = gql`

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { QUERY_SINGLE_EVENT } from '../utils/queries';
 import { ADD_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
+import moment from 'moment';
 
 const { TextArea } = Input;
 
@@ -85,13 +86,13 @@ const SingleEvent = () => {
             <h1>{event.title}</h1>
             <p>{event.description}</p>
             <p><strong>Location:</strong> {event.location}</p>
-            <p><strong>Date:</strong> {event.eventDate ? new Date(event.eventDate).toLocaleDateString() : 'No Date Available'}</p>
+            <p><strong>Date:</strong> {event.eventDate ? moment(event.eventDate).format('DD/MM/YYYY') : 'No Date Available'}</p>
           </Col>
           <Col span={12} style={{alignContent:"center"}}>
             <Badge count={event.likesCount} showZero>
               <Avatar icon={<HeartOutlined />} style={{ backgroundColor: '#f56a00' }} />
             </Badge>
-            <p><strong>Created At:</strong> {event.createdAt ? new Date(event.createdAt).toLocaleDateString() : 'No Created Date Available'}</p>
+            <p><strong>Created At:</strong> {event.createdAt ? moment(event.createdAt).format('DD/MM/YYYY') : 'No Created Date Available'}</p>
           </Col>
         </Row>
       </Card>
@@ -135,7 +136,7 @@ const SingleEvent = () => {
                 author={comment.userId.username}
                 avatar={<Avatar>{comment.userId.username[0].toUpperCase()}</Avatar>}
                 content={comment.text}
-                datetime={new Date(comment.createdAt).toLocaleString()}
+                datetime={comment.createdAt ? moment(comment.createdAt).format('DD/MM/YYYY HH:mm') : 'No Date Available'}
               />
             </li>
           )}
@@ -144,7 +145,7 @@ const SingleEvent = () => {
       </Card>
 
       {/* Modal for New Comment Submission */}
-      <Modal
+      {/* <Modal
         title="Add a Comment"
         open={modalVisible}
         onOk={handleAddComment}
@@ -158,7 +159,7 @@ const SingleEvent = () => {
             placeholder="Write your comment here..."
           />
         </Form.Item>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

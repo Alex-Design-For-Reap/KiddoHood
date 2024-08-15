@@ -1,6 +1,7 @@
 const { Event, User, Comment} = require('../models');
-const { formatDate } = require('../utils/formatDate');
+// const { formatDate } = require('../utils/formatDate');
 const {signToken, AuthenticationError} = require('../utils/auth');
+const moment = require('moment');
 
 const resolvers = {
   Query: {
@@ -33,11 +34,11 @@ const resolvers = {
       
       return events.map(event => ({
         ...event._doc,
-        eventDate: formatDate(event.eventDate),
-        createdAt: formatDate(event.createdAt),
+        eventDate: moment(event.eventDate).format('YYYY-MM-DD HH:mm:ss'),
+        createdAt: moment(event.createdAt).format('YYYY-MM-DD HH:mm:ss'),
         comments: event.comments.map(comment => ({
           ...comment._doc,
-          createdAt: formatDate(comment.createdAt),
+          createdAt: moment(comment.createdAt).format('YYYY-MM-DD HH:mm:ss'),
         })),
       }));
     },
@@ -55,22 +56,21 @@ const resolvers = {
       
       return {
         ...event._doc,
-        eventDate: formatDate(event.eventDate),
-        createdAt: formatDate(event.createdAt),
+        eventDate: moment(event.eventDate).format('YYYY-MM-DD HH:mm:ss'),
+        createdAt: moment(event.createdAt).format('YYYY-MM-DD HH:mm:ss'),
         comments: event.comments.map(comment => ({
           ...comment._doc,
-          createdAt: formatDate(comment.createdAt),
+          createdAt: moment(comment.createdAt).format('YYYY-MM-DD HH:mm:ss'),
         })),
       };
     },
     
 
-
     comments: async (parent, { eventId }) => {
       const comments = await Comment.find({ eventId }).populate('userId');
       return comments.map(comment => ({
         ...comment._doc,
-        createdAt: formatDate(comment.createdAt),
+        createdAt: moment(comment.createdAt).format('YYYY-MM-DD HH:mm:ss'),
       }));
     },
   },
@@ -101,6 +101,28 @@ const resolvers = {
       return { token, user };
     },
 
+    deleteUser: async (parent, { userId }, context) => {
+      if (context.user) {
+        // Find all events created by the user
+        const userEvents = await Event.find({ userId });
+
+        // Collect all comment IDs associated with these events
+        const commentIds = userEvents.flatMap(event => event.comments);
+
+        // Delete all comments associated with the user's events
+        await Comment.deleteMany({ _id: { $in: commentIds } });
+
+        // Delete all events created by the user
+        await Event.deleteMany({ userId });
+
+        // Finally, delete the user
+        const user = await User.findByIdAndDelete(userId);
+
+        return user;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+
     addEvent: async (parent, { title, description, imageUrl, eventDate, location, likesCount = 0 }, context) => {
       console.log(context.user);
       if (context.user) {
@@ -108,10 +130,9 @@ const resolvers = {
           title,
           description,
           imageUrl,
-          eventDate,
           location,
           likesCount,
-          createdAt: new Date().toISOString(),
+          eventDate: moment(eventDate).toDate(),
           userId: context.user._id
         });
 
@@ -139,7 +160,7 @@ const resolvers = {
           title,
           description,
           imageUrl,
-          eventDate,
+          eventDate: moment(eventDate).toDate(),
           location,
           likesCount,
         }, { new: true });
@@ -175,9 +196,6 @@ const resolvers = {
           text,
           userId: context.user._id,
           eventId,
-          createdAt: new Date().toISOString(),
-          // createdAt: formatDate(new Date()), //<<<<<<<<<<
-          // username: context.user.username, //<<<<<<<<<<
         });
 
           // Push the comment to the event's comments array
@@ -192,7 +210,8 @@ const resolvers = {
 
         return {
           ...populatedComment._doc,
-          createdAt: formatDate(populatedComment.createdAt),
+          createdAt: moment(populatedComment.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+          // createdAt: formatDate(populatedComment.createdAt),
           username: populatedComment.userId.username, // Extract username from populated userId
         };
       }

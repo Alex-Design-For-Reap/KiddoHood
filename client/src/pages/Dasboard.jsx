@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Modal } from 'antd'; // Import Modal here
+import { Button, Col, Row, Modal, message } from 'antd'; // Import Modal here
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
@@ -8,14 +8,19 @@ import { QUERY_ME } from '../utils/queries';
 import { DELETE_EVENT } from '../utils/mutations';
 import DashboardPage from '../components/CardCreator';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import DeleteAccount from '../components/DeleteUser';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const me = data?.me || {};
+  const navigate = useNavigate();
 
   const [deleteEvent] = useMutation(DELETE_EVENT, {
     onCompleted: () => {
+      message.success('Event deleted successfully!');
       refetch(); // Refetch the QUERY_ME query after deletion to refresh the page
+      navigate('/dashboard');
     },
     onError: (err) => {
       console.error("Failed to delete event:", err.message);
@@ -59,9 +64,12 @@ const Dashboard = () => {
     <div>
       <h1>{me.username} Dashboard</h1>
       <p>Manage your events</p>
-      <Button type="primary" style={{ marginBottom: '20px' }}>
+      <Button type="primary" style={{ margin: '20px' }}>
         <Link to="/CreateNew">Create New Event</Link>
       </Button>
+
+      <DeleteAccount/>
+
 
       <Row gutter={16}>
         {me.events.length ? (
