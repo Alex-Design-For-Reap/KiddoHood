@@ -11,7 +11,8 @@
     "build": "npm run build --prefix client",
     "lint:client": "npm run lint --prefix client",
     "seed:server": "npm run seed --prefix server",
-    "test:server": "npm run test --prefix server"
+    "test:server": "npm run test --prefix server",
+    "render-build": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
