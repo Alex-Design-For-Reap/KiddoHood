@@ -13,11 +13,11 @@ const SeeAll = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className='see-all-containes'>
       <h1>All Events</h1>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         {data.events.map(event => (
-          <Col span={8} key={event._id}>
+          <Col xs={24} sm={12} lg={8} key={event._id}>
             <EventsPage
               title={event.title}
               description={event.description}

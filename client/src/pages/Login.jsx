@@ -94,7 +94,7 @@ const Login = (props) => {
                 message: 'Please input your Password!',
               },
             ]}
-          >
+            >
             <Input
               prefix={<LockOutlined />}
               type="password"
@@ -102,6 +102,7 @@ const Login = (props) => {
               name="password"
             />
           </Form.Item>
+
           <Form.Item>
             <Button block type="primary" htmlType="submit">
               Log in

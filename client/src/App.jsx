@@ -23,60 +23,6 @@ const App = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // const isLoggedIn = Auth.loggedIn();
-
-  // const items = [
-  //   {
-  //       label: <NavLink to='/'>Home</NavLink>,
-  //       key: '1',
-  //       icon: <HomeOutlined />,
-  //   },
-  //   {
-  //       label: <NavLink to='/SeeAll'  > See All Events</NavLink>,
-  //       key: '2',
-  //       icon: <MehOutlined />,
-  //   },
-  //   {
-  //       label: <NavLink to='/Contact'>Contact</NavLink>,
-  //       key: '4',
-  //       icon: <ContactsOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/Login'>Login</NavLink>,
-  //     key: '5',
-  //     icon: <UserOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
-  //     key: '3',
-  //     icon: <MehOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/Register'>Register</NavLink>,
-  //     key: '6',
-  //     icon: <UserOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/SinglePlace'>Single Event</NavLink>,
-  //     key: '7',
-  //     icon: <UserOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/Dashboard'>Dashboard</NavLink>,
-  //     key: '8',
-  //     icon: <UserOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/CreateNew'>Create New</NavLink>,
-  //     key: '9',
-  //     icon: <UserOutlined />,
-  //   },
-  //   {
-  //     label: <NavLink to='/Error'>Error</NavLink>,
-  //     key: '11',
-  //     icon: <UserOutlined />,
-  //   },
-  // ];
 
   const httpLink = createHttpLink({
     uri: '/graphql',
@@ -120,31 +66,33 @@ const App = () => {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
       </Sider> */}
       <Layout>
-        <Header
+        {/* <Header
           style={{
             padding: 0,
             background: colorBgContainer,
           }}
-        />
+        /> */}
         <Content
-          style={{
-            margin: '24px 16px 0',
-          }}
+            style={{
+              margin: '24px 16px 0',
+              padding: 24,
+              minHeight: 'calc(100vh - 134px)', // Adjusting height for responsive design
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
           >
-          <div
+          {/* <div
             style={{
               padding: 24,
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              // display: 'flex',
-              // justifyContent: 'center',
-              // alignContent: 'center',
-              
-            }}
-            >
+            }} */}
+            {/* > */}
               <Outlet />
-          </div>
+          {/* </div> */}
         </Content>
 
         <Footer

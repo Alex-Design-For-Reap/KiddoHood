@@ -1,14 +1,15 @@
-// import React from 'react';
 import { HeartOutlined } from '@ant-design/icons';
-import { Avatar, Card, Badge } from 'antd';
+import { Avatar, Card, Badge, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
 const Cards = ({ title, description, imageUrl, likesCount, onMoreInfo }) => (
   <Card
+    hoverable
     style={{
-      width: 300,
-      margin: 20,
+      width: '100%',
+      margin: '0 auto',
     }}
     cover={
       <img
@@ -17,12 +18,11 @@ const Cards = ({ title, description, imageUrl, likesCount, onMoreInfo }) => (
         style={{ height: '200px', objectFit: 'cover' }}
       />
     }
-    actions={[
-      <div key="more-info">
-        {onMoreInfo}
-      </div>
-
-    ]}
+actions={[
+  <div key="more-info">
+    {onMoreInfo}
+  </div>
+]}
   >
     <Meta
       title={title}
@@ -49,3 +49,8 @@ const EventsPage = ({ title, description, imageUrl, likesCount, onMoreInfo }) =>
 );
 
 export default EventsPage;
+
+// actions={[
+//   <div key="more-info">
+//     {onMoreInfo}
+//   </div>
