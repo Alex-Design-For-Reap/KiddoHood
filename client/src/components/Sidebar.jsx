@@ -1,14 +1,9 @@
 import {
     HomeOutlined,
-    // MehOutlined,
-    // ContactsOutlined,
-    // UserOutlined,
     LogoutOutlined,
     UnorderedListOutlined,
-    HeartOutlined,
-    // DashboardOutlined,
+    // HeartOutlined,
     PlusCircleOutlined,
-    // FileTextOutlined,
     LoginOutlined,
     MailOutlined,
     ProfileOutlined
@@ -48,11 +43,12 @@ const Sidebar = () => {
             key: '4',
             icon: <MailOutlined />,
         },
-        {
-          label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
-          key: '3',
-          icon: <HeartOutlined />,
-        },
+        // This is ready to be used later as we evolve the application.
+        // {
+        //   label: <NavLink to='/MyFavorites'> My Favorites</NavLink>,
+        //   key: '3',
+        //   icon: <HeartOutlined />,
+        // },
         {
           label: <NavLink to='/Dashboard'>Dashboard</NavLink>,
           key: '8',

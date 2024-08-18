@@ -92,10 +92,6 @@ const Register = () => {
         onFinish={handleFormSubmit} // Use handleFormSubmit here
         style={{ maxWidth: 600,
           margin:'auto'
-          // display: 'flex',
-          // flexDirection: 'column',
-          // justifyContent: 'center',
-          // layout: 'vertical'
 
          }}
         scrollToFirstError

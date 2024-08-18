@@ -6,7 +6,6 @@ const ContactUs = () => {
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-    // You can handle form submission here (e.g., send the data to an API)
   };
 
   return (

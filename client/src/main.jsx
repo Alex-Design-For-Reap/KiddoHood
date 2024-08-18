@@ -4,12 +4,9 @@ import '../src/App.css';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
 import App from './App';
 import Home from './pages/Home';
-// import About from './pages/About';
-// import Contact from './pages/Contact';
-import Error from './pages/Error';
+import Error from './pages/Error'
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Contact from './pages/Contact';

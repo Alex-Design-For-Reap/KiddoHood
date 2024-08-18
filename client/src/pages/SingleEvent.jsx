@@ -143,23 +143,6 @@ const SingleEvent = () => {
           locale={{ emptyText: 'No comments yet.' }}
         />
       </Card>
-
-      {/* Modal for New Comment Submission */}
-      {/* <Modal
-        title="Add a Comment"
-        open={modalVisible}
-        onOk={handleAddComment}
-        onCancel={() => setModalVisible(false)}
-      >
-        <Form.Item>
-          <TextArea
-            rows={4}
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Write your comment here..."
-          />
-        </Form.Item>
-      </Modal> */}
     </div>
   );
 };

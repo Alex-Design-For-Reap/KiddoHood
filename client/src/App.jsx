@@ -7,12 +7,9 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-// import Auth from './utils/auth';
 
-// import { UserOutlined, HomeOutlined, ContactsOutlined, MehOutlined  } from '@ant-design/icons';
 import { Layout, theme } from 'antd';
 import { Outlet } from 'react-router-dom';
-// import myImage from './assets/KiddoHoodLogo.svg';
 import Sidebar from './components/Sidebar';
 
 
@@ -48,30 +45,7 @@ const App = () => {
     <ApolloProvider client={client}>
     <Layout>
       <Sidebar />
-      
-      {/* <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-        >
-        <div >
-            <img src={myImage} alt="kiddoHood Logo" />
-        </div>
-
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
-      </Sider> */}
       <Layout>
-        {/* <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        /> */}
         <Content
             style={{
               margin: '24px 16px 0',
@@ -82,17 +56,8 @@ const App = () => {
               display: 'flex',
               flexDirection: 'column',
             }}
-          >
-          {/* <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }} */}
-            {/* > */}
-              <Outlet />
-          {/* </div> */}
+        > 
+            <Outlet />
         </Content>
 
         <Footer

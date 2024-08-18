@@ -49,8 +49,3 @@ const EventsPage = ({ title, description, imageUrl, likesCount, onMoreInfo }) =>
 );
 
 export default EventsPage;
-
-// actions={[
-//   <div key="more-info">
-//     {onMoreInfo}
-//   </div>
